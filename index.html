@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+	<div class="app">
+		<div class="app-head">
+			<div style="margin: 0px 20px;display: flex;">
+				<div class="bili-avatar" style="padding-top: 20px;">
+					<a href="https://space.bilibili.com/477317922" target="_blank">
+						<img class="avatar" title="关注弥希Miki喵" src="img/miki.png">
+					</a>
+				</div>
+				<div style="margin:20px;color:white">
+					<div style="align-items: flex-end;display: flex">
+						<span class="miki-name">弥希Miki</span>
+						<img style="padding-left: 6px;" title="Bilibili粉丝数"
+							src="https://img.shields.io/badge/dynamic/json?color=purple&label=%E7%B2%89%E4%B8%9D%E6%95%B0&query=data.follower&url=https%3A%2F%2Fapi.bilibili.com%2Fx%2Frelation%2Fstat%3Fvmid%3D477317922"></img>
+						<img style="padding-left: 5px;"
+							src="https://img.shields.io/badge/VirtuaReal-%E4%BA%94%E6%9C%9F%E7%94%9F-purple"
+							title="VirtuaReal五期生"></img>
+					</div>
+					<div>
+						<div class="h-sign">
+							这是一个使用<a href="https://space.bilibili.com/477317922" target="_blank">弥希Miki</a>录播音频做为数据集，
+							使用<a href="https://github.com/MasayaKawamura/MB-iSTFT-VITS"
+								target="_blank">MB-iSTFT-VITS</a>技术训练的语音合成demo
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="app-body">
+			<div class="app_io">
+				<div class="input-row">
+					<div class="input-container">
+						<label for="textInput" class="hints">想让弥希Miki说些什么？</label>
+						<div>
+							<textarea id="textInput" class="input-area">大家好，我是正统苛刻严于律己的学生会会长弥希miki！</textarea>
+						</div>
+					</div>
+					<div class="input-container">
+						<label for="cleanedText" class="hints">通过符号来合成！</label>
+						<div>
+							<textarea id="cleanedText" class="input-area"></textarea>
+						</div>
+
+					</div>
+				</div>
+				<div class="button-container">
+					<button id="getCleanedButton">使用文本合成</button>
+					<button id="getAudioButton">使用符号合成</button>
+				</div>
+				<div class="bar-container">
+					<label for="fileInput" class="file-input-button">选择一个txt文件来合成语音吧</label>
+					<input type="file" id="fileInput" accept=".txt" display:none>
+					<button class="getAudioButton" id="getAudioButton">重新合成！</button>
+					<div id="progressBar" class="progress-bar"></div>
+					<div id="progressText" class="progress-text"></div>
+				</div>
+				<audio controls id="outputAudio" type="audio/wav"></audio>
+			</div>
+
+		</div>
+		<div class="app-bottom">
+			<div class="bottom-left">
+				<div class="copyright">
+					<p>模型使用知识共享署名-非商业性使用 4.0 国际许可协议，代码采用 MIT License</p>
+					<p>仅供学习交流，不可用于商业或非法用途</p>
+					<p>使用本项目模型直接或间接生成的音频，必须声明由AI技术或VITS技术合成</p>
+				</div>
+			</div>
+			<div class="bottom-right">
+				<img alt="知识共享许可协议" src="img/CC-BY_NC.png" /></a>
+			</div>
+		</div>
+	</div>
+
+	<script src="renderer/renderer.js"></script>
+</body>
+
+</html>
