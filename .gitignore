@@ -140,3 +140,5 @@ monotonic_align/core.c
 trained/*.pth
 
 python_env/
+
+.vscode
