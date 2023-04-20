@@ -3,84 +3,175 @@
 
 <head>
 	<meta charset="UTF-8">
-	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="css/global.css">
+	<link rel="stylesheet" href="css/nav.css">
+	<link rel="stylesheet" href="css/synthesizePage.css">
+	
+	<link rel="stylesheet" href="css/trainPage.css">
 </head>
 
 <body>
-	<div class="app">
-		<div class="app-head">
-			<div style="margin: 0px 20px;display: flex;">
-				<div class="bili-avatar" style="padding-top: 20px;">
-					<a href="https://space.bilibili.com/477317922" target="_blank">
-						<img class="avatar" title="关注弥希Miki喵" src="img/miki.png">
-					</a>
-				</div>
-				<div style="margin:20px;color:white">
-					<div style="align-items: flex-end;display: flex">
-						<span class="miki-name">弥希Miki</span>
-						<img style="padding-left: 6px;" title="Bilibili粉丝数"
-							src="https://img.shields.io/badge/dynamic/json?color=purple&label=%E7%B2%89%E4%B8%9D%E6%95%B0&query=data.follower&url=https%3A%2F%2Fapi.bilibili.com%2Fx%2Frelation%2Fstat%3Fvmid%3D477317922"></img>
-						<img style="padding-left: 5px;"
-							src="https://img.shields.io/badge/VirtuaReal-%E4%BA%94%E6%9C%9F%E7%94%9F-purple"
-							title="VirtuaReal五期生"></img>
-					</div>
-					<div>
-						<div class="h-sign">
-							这是一个使用<a href="https://space.bilibili.com/477317922" target="_blank">弥希Miki</a>录播音频做为数据集，
-							使用<a href="https://github.com/MasayaKawamura/MB-iSTFT-VITS"
-								target="_blank">MB-iSTFT-VITS</a>技术训练的语音合成demo
-						</div>
-					</div>
-				</div>
-			</div>
+	<div class="main-container">
+		<div id="nav" class="nav">
+			<button class="nav-button" id="synthesizeButton">合成</button>
+			<button class="nav-button" id="dataProcessButton">数据处理</button>
+			<button class="nav-button" id="trainButton">训练</button>
 		</div>
-		<div class="app-body">
-			<div class="app_io">
-				<div class="input-row">
-					<div class="input-container">
-						<label for="textInput" class="hints">想让弥希Miki说些什么？</label>
-						<div>
-							<textarea id="textInput" class="input-area">大家好，我是正统苛刻严于律己的学生会会长弥希miki！</textarea>
+
+		<div class="app">
+
+			<!-- 合成页面内容 -->
+			<div id="synthesizePage" class="synthesize-page page">
+				<div class="app-head">
+					<div class="head-content">
+						<div class="bili-avatar">
+							<a href="https://space.bilibili.com/477317922" target="_blank">
+								<img class="avatar" title="关注弥希Miki喵" src="img/miki.png">
+							</a>
+						</div>
+						<div class="miki-info">
+							<div class="name-and-badge">
+								<span class="miki-name">弥希Miki</span>
+								<img class="badge" title="Bilibili粉丝数"
+									src="https://img.shields.io/badge/dynamic/json?color=purple&label=%E7%B2%89%E4%B8%9D%E6%95%B0&query=data.follower&url=https%3A%2F%2Fapi.bilibili.com%2Fx%2Frelation%2Fstat%3Fvmid%3D477317922">
+								<img class="badge"
+									src="https://img.shields.io/badge/VirtuaReal-%E4%BA%94%E6%9C%9F%E7%94%9F-purple"
+									title="VirtuaReal五期生">
+							</div>
+							<div class="description">
+								<div class="h-sign">
+									这是一个使用<a href="https://space.bilibili.com/477317922"
+										target="_blank">弥希Miki</a>录播音频做为数据集，
+									使用<a href="https://github.com/MasayaKawamura/MB-iSTFT-VITS"
+										target="_blank">MB-iSTFT-VITS</a>技术训练的语音合成demo
+								</div>
+							</div>
 						</div>
 					</div>
-					<div class="input-container">
-						<label for="cleanedText" class="hints">通过符号来合成！</label>
-						<div>
-							<textarea id="cleanedText" class="input-area"></textarea>
-						</div>
+				</div>
+				<div class="app-body">
+					<div class="app_io">
+						<div class="input-row">
+							<div class="input-container">
+								<label for="textInput" class="hints">想让弥希Miki说些什么？</label>
+								<div class="menu-container">
+									<span class=modele-hint>选择模型: <span>
+											<select id="modelSelect" class="model-select"></select>
+								</div>
+								<div>
+									<textarea id="textInput" class="input-area">大家好，我是正统苛刻严于律己的学生会会长弥希miki！</textarea>
+								</div>
+							</div>
+							<div class="input-container">
+								<label for="cleanedText" class="hints">通过符号来合成！</label>
+								<div>
+									<textarea id="cleanedText" class="input-area"></textarea>
+								</div>
 
+							</div>
+						</div>
+						<div class="button-container">
+							<button id="getCleanedButton">使用文本合成</button>
+							<button id="getAudioButton">使用符号合成</button>
+						</div>
+						<div class="bar-container">
+							<label for="fileInput" class="file-input-button">选择一个txt文件来合成语音吧</label>
+							<input type="file" id="fileInput" accept=".txt">
+							<button class="regetAudioButton" id="regetAudioButton">重新合成！</button>
+							<div id="progressBar" class="progress-bar"></div>
+							<div id="progressText" class="progress-text"></div>
+						</div>
+						<audio controls id="outputAudio" type="audio/wav"></audio>
 					</div>
 				</div>
-				<div class="button-container">
-					<button id="getCleanedButton">使用文本合成</button>
-					<button id="getAudioButton">使用符号合成</button>
+				<div class="app-bottom">
+					<div class="bottom-left">
+						<div class="copyright">
+							<p>模型使用知识共享署名-非商业性使用 4.0 国际许可协议，代码采用 MIT License</p>
+							<p>仅供学习交流，不可用于商业或非法用途</p>
+							<p>使用本项目模型直接或间接生成的音频，必须声明由AI技术或VITS技术合成</p>
+						</div>
+					</div>
+					<div class="bottom-right">
+						<img alt="知识共享许可协议" src="img/CC-BY_NC.png">
+					</div>
 				</div>
-				<div class="bar-container">
-					<label for="fileInput" class="file-input-button">选择一个txt文件来合成语音吧</label>
-					<input type="file" id="fileInput" accept=".txt" display:none>
-					<button class="getAudioButton" id="getAudioButton">重新合成！</button>
-					<div id="progressBar" class="progress-bar"></div>
-					<div id="progressText" class="progress-text"></div>
-				</div>
-				<audio controls id="outputAudio" type="audio/wav"></audio>
 			</div>
 
-		</div>
-		<div class="app-bottom">
-			<div class="bottom-left">
-				<div class="copyright">
-					<p>模型使用知识共享署名-非商业性使用 4.0 国际许可协议，代码采用 MIT License</p>
-					<p>仅供学习交流，不可用于商业或非法用途</p>
-					<p>使用本项目模型直接或间接生成的音频，必须声明由AI技术或VITS技术合成</p>
+			<!-- dataProcess.html 中的内容 -->
+			<div id="dataProcessPage" class="dataProcess-page page">
+				<h1>数据处理</h1>
+			</div>
+
+			<!-- train.html 中的内容 -->
+			<div id="trainPage" class="train-page page">
+				<div class="settings">
+					<div class="setting-l">
+						<div class="setting-input">
+							<form class="setting-input">
+								<div>
+									<label for="model-name">模型名：</label>
+									<input type="text" id="model-name" title="这个模型的名字,不要和已有的名字重复哦">
+								</div>
+								<div>
+									<label for="config-name">配置文件名：</label>
+									<input type="text" id="config-name" title="配置文件名，你其实可以不用改">
+								</div>
+								<div>
+									<label for="train-files">训练集列表：</label>
+									<input type="text" id="train-files" title="顾名思义，内容需要经过cleaners处理变成符号">
+								</div>
+								<div>
+									<label for="val-files">验证集列表：</label>
+									<input type="text" id="val-files" title="顾名思义，内容需要经过cleaners处理变成符号">
+								</div>
+								<div>
+									<label for="train-count">训练次数：</label>
+									<input type="number" id="train-count" title="建议设置的很大，反正你可以随时停下来，不是吗？" value="10000">
+								</div>
+								<div>
+									<label for="save-checkpoint">保存间隔：</label>
+									<input type="number" id="save-checkpoint" title="我喜欢设置为200左右。如果你在调整参数，小一点也无妨" value="200">
+								</div>
+								<div>
+									<label for="file-count">batch size：</label>
+									<input type="number" id="file-count"
+										title="这个数字表示了每次训练的时候读取的数据量，一般8G的显存调到12比较合适，你可以自己尝试着调整，或者上网问问" value="12">
+								</div>
+								<div>
+									<label for="cleaner">cleaner：</label>
+									<input type="text" id="cleaner"
+										title="我只写了chinese cleaner，有需要可以自己写其他的，在vits/text/cleaners/里" value="chinese_cleaners">
+								</div>
+							</form>
+						</div>
+						<div class="buttons">
+							<button id="createJson" class="normal-button">确定</button>
+							<button id="DownloadJson" class="normal-button">另存为</button>
+							<select id="modelSelectT" class="model-select"></select>
+						</div>
+					</div>
+					<div class="setting-r">
+						<div id="terminal" class="terminal">
+							<pre id="output"></pre>
+							<div id="hack-buttons",class="hack-buttons">
+								<button id="startTrain" class="hack-button">启动</button>
+								<button id="stopTrain" class="hack-button">停止</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="trainlog">
+					<div class="tensorboard-herf">
+						<a href="http://localhost:6006/" target="_blank" class="toTensorboard" id="toTensorboard">在浏览器中查看tensorboard</a>
+					</div>
+					<iframe id="tensorboardIframe" class="tensorboard"></iframe>
 				</div>
 			</div>
-			<div class="bottom-right">
-				<img alt="知识共享许可协议" src="img/CC-BY_NC.png" /></a>
-			</div>
+
 		</div>
 	</div>
-
-	<script src="renderer/renderer.js"></script>
+	<script src="renderer.js"></script>
 </body>
 
 </html>

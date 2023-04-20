@@ -1,52 +1,50 @@
 # -*- coding: utf-8 -*-
+import os
+import sys
+current_dir = os.path.dirname(os.path.abspath(__file__))
+vits_dir = os.path.join(current_dir, "vits")
+sys.path.append(vits_dir)
 
 from flask import Flask, request, jsonify, send_file
 import io
+import glob
 import numpy as np
 import struct
 import re
-import sys
 import json
-
-from text.cleaners import chinese_cleaners
-
-import torch
-from torch import nn
-from torch.nn import functional as F
-from torch.utils.data import DataLoader
-from text.symbols import symbols
-
 import commons
 import utils
+import torch
+
 from models import SynthesizerTrn
 from text.symbols import symbols
 from text import text_to_sequence
 from text.cleaners import chinese_cleaners
 
-app = Flask(__name__)
-cuda = torch.cuda.is_available()
-with open('configs/app.json','r',encoding = 'utf-8') as json_file:
-    data = json.load(json_file)
-hps = utils.get_hparams_from_file(data["modelConfig"])
-model = "./trained/"+data["model"]
+model = None
+hps = None
 
-if cuda:
-    net_g = SynthesizerTrn(
-        len(symbols),
-        hps.data.filter_length // 2 + 1,
-        hps.train.segment_size // hps.data.hop_length,
-        **hps.model).cuda()
-    _ = net_g.eval()
-else:
-    net_g = SynthesizerTrn(
-        len(symbols),
-        hps.data.filter_length // 2 + 1,
-        hps.train.segment_size // hps.data.hop_length,
-        **hps.model)
-    _ = net_g.eval()
-_ = utils.load_checkpoint(model, net_g, None)
+'''
+错误代码直接print
+code:错误信息
+1：合成失败
+2：模型未加载
+'''
+
+app = Flask(__name__)
+
+def latest_checkpoint_path(dir_path, regex="G_*.pth"):
+  f_list = glob.glob(os.path.join(dir_path, regex))
+  f_list.sort(key=lambda f: int("".join(filter(str.isdigit, f))))
+  x = f_list[-1]
+  return x
+
+cuda = torch.cuda.is_available()
+    
 
 def get_text(text, hps):
+    if not model or not hps:
+        print(2)
     text = text.replace("\n", "")
     text_norm = text_to_sequence(text, hps.data.text_cleaners)
     if hps.data.add_blank:
@@ -60,7 +58,8 @@ def getCleaned(text):
     return text
 
 def getAudio(text):
-
+    if not model or not hps:
+        print(2)
     stn_tst = get_text(text, hps)
     if cuda:
         with torch.no_grad():
@@ -153,6 +152,29 @@ def long_audio_data():
     rawAudio = np.concatenate(audio_list)
     audio_bytes = getWav(rawAudio,22050,1)
     return send_file(io.BytesIO(audio_bytes), mimetype='application/octet-stream')
+
+@app.route('/reloadModel')
+def reload_model():
+    global hps,model,net_g
+    filePath = request.args.get('text')
+    hps = utils.get_hparams_from_file(f'./models/{filePath}/config.json')
+    model = latest_checkpoint_path(f'./models/{filePath}/')
+    if cuda:
+        net_g = SynthesizerTrn(
+            len(symbols),
+            hps.data.filter_length // 2 + 1,
+            hps.train.segment_size // hps.data.hop_length,
+            **hps.model).cuda()
+        _ = net_g.eval()
+    else:
+        net_g = SynthesizerTrn(
+            len(symbols),
+            hps.data.filter_length // 2 + 1,
+            hps.train.segment_size // hps.data.hop_length,
+            **hps.model)
+        _ = net_g.eval()
+    _ = utils.load_checkpoint(model, net_g, None)
+    return jsonify(cleaned_text='reload')
 
 
 if __name__ == '__main__':

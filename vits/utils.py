@@ -69,7 +69,18 @@ def summarize(writer, global_step, scalars={}, histograms={}, images={}, audios=
 
 def latest_checkpoint_path(dir_path, regex="G_*.pth"):
   f_list = glob.glob(os.path.join(dir_path, regex))
+  D_list = glob.glob(os.path.join(dir_path, "D_*.pth"))
   f_list.sort(key=lambda f: int("".join(filter(str.isdigit, f))))
+  D_list.sort(key=lambda f: int("".join(filter(str.isdigit, f))))
+
+  while len(f_list) > 5:
+    os.remove(f_list[0])
+    f_list.pop(0)
+
+  while len(D_list) > 5:
+    os.remove(D_list[0])
+    D_list.pop(0)
+
   x = f_list[-1]
   print(x)
   return x
@@ -149,7 +160,7 @@ def get_hparams(init=True):
                       help='Model name')
   
   args = parser.parse_args()
-  model_dir = os.path.join("./logs", args.model)
+  model_dir = os.path.join("../models", args.model)
 
   if not os.path.exists(model_dir):
     os.makedirs(model_dir)

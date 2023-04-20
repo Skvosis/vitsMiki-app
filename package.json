@@ -4,11 +4,14 @@
   "description": "gui for Miki-TTS",
   "main": "main.js",
   "scripts": {
-    "start": "create_env.bat && electron ."
+    "start": "electron ."
   },
   "author": "Shavosiik凉",
   "license": "MIT",
   "devDependencies": {
     "electron": "^24.1.2"
+  },
+  "dependencies": {
+    "ps-tree": "^1.2.0"
   }
 }

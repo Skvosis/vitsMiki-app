@@ -1,4 +1,4 @@
-# 内置iSTFT-VITS模型的语音合成
+# 内置iSTFT-VITS模型的语音合成和训练
 
 本项目是一个基于electron编写的语音合成的GUI，模型来源是[MB-iSTFT-VITS](https://github.com/MasayaKawamura/MB-iSTFT-VITS/),界面部分参考了[
 vits-miki](https://huggingface.co/spaces/tumuyan/vits-miki)(作者是[秋之雪华](https://space.bilibili.com/80299))。
@@ -8,7 +8,9 @@ vits-miki](https://huggingface.co/spaces/tumuyan/vits-miki)(作者是[秋之雪�
 
 ## 使用方法
 
-下载全部的代码，然后下载我的模型，所有模型均应放在`trained/`文件夹中
+下载全部的代码，然后下载我的模型，所有模型均应放在`models/`文件夹中,这个文件夹下的每个子文件夹包含了一个模型，config文件也要放在这里
+
+更新！现在也可以训练了
 
 弥希Miki的模型下载：[GoogleDrive](https://drive.google.com/file/d/1JJ0D5h4n9laCNS_EaRqW-5W3YeRec1kv/view?usp=share_link)
 
