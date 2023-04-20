@@ -1,0 +1,295 @@
+.synthesize-page * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei";
+}
+
+.synthesize-page a {
+  color: #f0f0f0;
+  text-decoration: none;
+}
+
+.synthesize-page button,
+.synthesize-page textarea,
+.synthesize-page audio{
+  box-shadow: 3px 3px 2px 2px rgba(0, 0, 0, 0.2);
+}
+
+.synthesize-page .progress-bar,
+.synthesize-page .file-input-button {
+  box-shadow: 3px 3px 2px 2px rgba(0, 0, 0, 0.2);
+}
+
+.synthesize-page .head-content {
+  margin: 0 20px;
+  display: flex;
+}
+
+.synthesize-page .miki-info {
+  margin: 20px;
+  color: white;
+}
+
+.synthesize-page .name-and-badge {
+  align-items: flex-end;
+  display: flex;
+}
+
+.synthesize-page .badge {
+  padding-left: 6px;
+}
+
+.synthesize-page .miki-name {
+  font-weight: 600;
+  font-size: 24px;
+  min-width: 85px;
+  margin-top: 5px;
+  border-radius: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.synthesize-page .bili-avatar {
+  padding-top: 20px;
+}
+
+.synthesize-page .app-head {
+  width: 100%;
+  height: 190px;
+  padding-top: 75px;
+  background-image: url('../img/title_background.webp');
+  background-size: cover;
+  filter: opacity(0.92);
+}
+
+.synthesize-page .app-body {
+  display: flex;
+  flex-direction: column;
+  height: 474px;
+  width: 100%;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-size: cover;
+  background-color: #d1b4f0;
+}
+
+.synthesize-page .hints {
+  margin: 10px, 0, 10px, 0;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.synthesize-page .app-bottom {
+  height: 75px;
+  position: relative;
+}
+
+.synthesize-page .bottom-left {
+  height: 75px;
+  width: 100%;
+  margin: 0, auto;
+  display: inline-block;
+  text-align: center;
+}
+
+.synthesize-page .bottom-right {
+  position: absolute;
+  top: 21px;
+  left: 875px;
+  float: right;
+}
+
+.synthesize-page .app_io {
+  margin: 0 auto;
+  width: 90%;
+}
+
+.synthesize-page .h-sign {
+  font-size: 18px;
+  margin-top: 10px;
+  font-weight: 700;
+}
+
+.synthesize-page .avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 40px;
+  max-width: 80px;
+}
+
+.synthesize-page .copyright {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 175%;
+  color: #2e2e2e;
+}
+
+.synthesize-page label {
+  font-size: 1rem;
+  color: #333;
+}
+
+.synthesize-page .input-area {
+  padding: 20px 22px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+  resize: none;
+  width: 100%;
+  height: 175px;
+  margin-top: 10px;
+  font-size: 16px;
+  line-height: 150%
+}
+
+.synthesize-page .input-row {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+.synthesize-page .input-container {
+  width: 48%;
+}
+
+.synthesize-page .button-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+
+.synthesize-page button {
+  padding: 10px;
+  height: 38px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007BFF;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  width: 48%;
+}
+
+.synthesize-page button:hover {
+  background-color: #0056B3;
+}
+
+.synthesize-page audio {
+  display: block;
+  margin-top: 30px;
+  width: 100%;
+  border-radius: 27px;
+}
+
+.synthesize-page input[type="file"] {
+  display: none;
+}
+
+.synthesize-page .file-input-button {
+  margin-top: 26px;
+  height: 38px;
+  width: 214px;
+  display: inline-block;
+  padding: 0.5em 1em;
+  text-align: center;
+  padding: 10px;
+  font-size: 12px;
+  color: #fff;
+  background-color: #007BFF;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.synthesize-page .file-input-button:hover {
+  background-color: #0056B3;
+}
+
+.synthesize-page .file-input-button:active {
+  background-color: #1e69b4;
+}
+
+.synthesize-page .bar-container {
+  position: relative;
+}
+
+
+.synthesize-page .progress-bar {
+  position: absolute;
+  top: 30px;
+  left: 337px;
+  width: 580px;
+  height: 30px;
+  border: 1px solid #ccc;
+  border-radius: 15px;
+  background-color: #f5f5f5;
+  transition: background-color 0.3s;
+}
+
+.synthesize-page .progress-text {
+  position: absolute;
+  top: 34px;
+  left: 337px;
+  width: 580px;
+  height: 30px;
+  font-size: 16px;
+  text-align: center;
+  color: #fcf4fc;
+  font-weight: 600;
+  vertical-align: middle;
+}
+
+.synthesize-page .regetAudioButton {
+  position: absolute;
+  text-align: center;
+  top: 26px;
+  left: 230px;
+  width: 91px;
+}
+
+.menu-container{
+  display: inline-block;
+  align-items: center;
+  justify-content: center;
+  margin-left: 10px;
+  padding: 0 0 0 10px;
+}
+
+.input-container{
+  position: relative;
+}
+
+.synthesize-page .model-select {
+  position: absolute;
+  left: 290px;
+  top: 2px;
+  width: 140px;
+  height: 22px;
+  padding: 0 0 0 5px;
+  font-size: 12px;
+  vertical-align: middle;
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 2px 2px 1px 1px rgba(0, 0, 0, 0.2);
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+.synthesize-page .model-select:focus {
+  outline: none;
+  border-color: #4d90fe;
+}
+
+.modele-hint{
+  display: inline-block;
+  margin-bottom: 4px;
+  font-size: 12px;
+  vertical-align: middle;
+}
+

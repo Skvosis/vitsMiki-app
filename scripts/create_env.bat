@@ -13,12 +13,15 @@ python -m venv python_env
 rem 激活虚拟环境
 call .\python_env\Scripts\activate.bat
 
+pip3 install torch torchvision --index-url https://download.pytorch.org/whl/cu117
+
 echo Installing requirements
 rem 安装 requirements.txt 中的依赖包
 pip install -r requirements.txt
 
 echo Building monotonic_align
 rem 执行其他命令
+cd vits
 cd monotonic_align
 mkdir monotonic_align
 python setup.py build_ext --inplace

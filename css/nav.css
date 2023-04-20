@@ -1,0 +1,44 @@
+.nav {
+  z-index: 255;
+  position: absolute;
+  top: 0;
+  left: 812px;
+  opacity: 0;
+  transition: 0.3s;
+}
+
+.nav:hover{
+  opacity: 1;
+}
+
+#synthesizeButton {
+  border-radius: 0 0 0 5px;
+}
+
+#trainButton {
+  border-radius: 0 0 5px 0;
+}
+
+.nav-button {
+  background-color: rgba(255, 255, 255, 0.5);
+  color:#333;
+  float: left;
+  height: 30px;
+  width: 60px;
+  font-weight: 600;
+  cursor: pointer;
+  vertical-align: middle;
+  text-align: center;
+  border: none;
+  transition-duration: 0.3s;
+
+  font-size: 13px;
+}
+
+.nav-button:active {
+  background-color: rgba(0, 255, 0, 0.5);
+}
+
+.nav-button:hover {
+  background-color: rgba(191, 144, 240, 0.5);
+}

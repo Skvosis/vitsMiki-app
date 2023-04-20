@@ -133,12 +133,14 @@ dist
 **/__pycache__
 **/build
 
-monotonic_align/monotonic_align/
-monotonic_align/core.c
+vits/monotonic_align/monotonic_align/
+vits/monotonic_align/core.c
 
 #model and python
 trained/*.pth
 
 python_env/
 
+models/*
 .vscode
+files/*
