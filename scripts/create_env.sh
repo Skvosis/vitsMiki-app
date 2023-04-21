@@ -8,23 +8,34 @@ fi
 
 echo "Creating virtual environment"
 # 创建虚拟环境
-python -m venv python_env
+python3 -m venv python_env
 
+echo "Activate python virtual environment"
 # 激活虚拟环境
-source ./python_env/Scripts/activate
+source ./python_env/bin/activate
+
+echo "Upgrade pip"
+pip3 install --upgrade pip
+echo "Done upgrading pip"
+
+echo "Installing pytorch"
+pip3 install torch
+echo "Done installing pytorch"
 
 echo "Installing requirements"
-# 安装 requirements.txt 中的依赖包
-pip install -r requirements.txt
+pip3 install -r requirements.txt
+echo "Done installing requirements"
 
 echo "Building monotonic_align"
-# 执行其他命令
-cd vits
-cd monotonic_align
-mkdir monotonic_align
-python setup.py build_ext --inplace
+cd vits/monotonic_align
+mkdir -p build
+python3 setup.py build_ext --inplace
+cd ../..
+echo "Done building monotonic_align"
 
+echo "Deactivate virtual environment"
 # 退出虚拟环境
 deactivate
+echo "Done exiting virtual environment"
 
-echo "Done."
+echo "All Done."

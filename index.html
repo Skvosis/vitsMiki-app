@@ -152,20 +152,22 @@
 						</div>
 					</div>
 					<div class="setting-r">
+						
+						<div id="hack-buttons",class="hack-buttons">
+							<button id="startTrain" class="hack-button">启动</button>
+							<button id="stopTrain" class="hack-button">停止</button>
+						</div>
 						<div id="terminal" class="terminal">
 							<pre id="output"></pre>
-							<div id="hack-buttons",class="hack-buttons">
-								<button id="startTrain" class="hack-button">启动</button>
-								<button id="stopTrain" class="hack-button">停止</button>
-							</div>
 						</div>
 					</div>
 				</div>
 				<div class="trainlog">
 					<div class="tensorboard-herf">
 						<a href="http://localhost:6006/" target="_blank" class="toTensorboard" id="toTensorboard">在浏览器中查看tensorboard</a>
+						<button id="fullScreen" class="full-screen">全屏显示tensorboard</button>
 					</div>
-					<iframe id="tensorboardIframe" class="tensorboard"></iframe>
+					<iframe id="tensorboardIframe" class="tensorboard" allow="fullscreen"></iframe>
 				</div>
 			</div>
 
