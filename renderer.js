@@ -69,6 +69,22 @@ const toTensorboard = document.getElementById('toTensorboard');
 const tensorboardIframe = document.getElementById('tensorboardIframe');
 const fullScreen = document.getElementById('fullScreen');
 
+//预处理
+const videoInput = document.getElementById('videoInput');
+const audioInput1 = document.getElementById('audioInput1');
+const audioInput2 = document.getElementById('audioInput2');
+const videoToAudio = document.getElementById('videoToAudio');
+const AudioToCaudio = document.getElementById('AudioToCaudio');
+const caudioToText = document.getElementById('caudioToText');
+const textOut = document.getElementById('textOut');
+const Poutput = document.getElementById('Poutput');
+const textDisplay = document.getElementById('textDisplay');
+const audioPlayer = document.getElementById('audioPlayer');
+const PsaveAsBtn = document.getElementById('PsaveAs');
+const PsaveBtn = document.getElementById('Psave');
+const convertToSymbolBtn = document.getElementById('convertToSymbol');
+
+
 
 
 //处理模型选择
@@ -488,3 +504,40 @@ fullScreen.addEventListener('click', () => {
 });
 
 //以下是数据处理 
+videoInput.addEventListener('change', handleVideoInput);
+audioInput1.addEventListener('change', handleAudioInput1);
+audioInput2.addEventListener('change', handleAudioInput2);
+videoToAudio.addEventListener('click',handleVTA);
+AudioToCaudio.addEventListener('click',handleATC);
+caudioToText.addEventListener('click',handleCTT);
+PsaveAsBtn.addEventListener('click', handleSaveAs);
+PsaveBtn.addEventListener('click', handleSave);
+convertToSymbolBtn.addEventListener('click', handleConvertToSymbol);
+
+function handleVideoInput(event) {
+	// 处理视频文件输入
+  }
+  
+  function handleAudioInput1(event) {
+	// 处理音频文件输入1
+  }
+  
+  function handleAudioInput2(event) {
+	// 处理音频文件输入2
+  }
+  
+  function handleVTA(event) {
+  }
+  function handleATC(event) {
+  }
+  function handleCTT(event) {
+  }
+  
+  function handleSaveAs(event) {
+  }
+  
+  function handleSave(event) {
+  }
+  
+  function handleConvertToSymbol(event) {
+  }

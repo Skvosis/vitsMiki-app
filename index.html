@@ -6,7 +6,7 @@
 	<link rel="stylesheet" href="css/global.css">
 	<link rel="stylesheet" href="css/nav.css">
 	<link rel="stylesheet" href="css/synthesizePage.css">
-	
+	<link rel="stylesheet" href="css/dataProcessPage.css">
 	<link rel="stylesheet" href="css/trainPage.css">
 </head>
 
@@ -100,7 +100,32 @@
 
 			<!-- dataProcess.html 中的内容 -->
 			<div id="dataProcessPage" class="dataProcess-page page">
-				<h1>数据处理</h1>
+				<div class="left">
+					<div class="hint">输入一个视频文件</div>
+					<input type="file" id="videoInput" accept="video/*">
+					<button class="arrow-button" id="videoToAudio">⬇️</button>
+					<div class="hint">输入一段原始音频</div>
+					<input type="file" id="audioInput1" accept="audio/*">
+					<button class="arrow-button" id="audioToCaudio">⬇️</button>
+					<div class="hint">输入一段处理好的音频</div>
+					<input type="file" id="audioInput2" accept="audio/*">
+					<button class="arrow-button" id="caudioToText">➡️</button>
+					<div id="textOut" class="terminalText">
+						<pre id="Poutput"></pre>
+					</div>
+				</div>
+			
+				<div class="right">
+					<div class="text-display" id="textDisplay"></div>
+					<div class="audio-player">
+						<audio id="audioPlayer" controls></audio>
+						<div class="button-group">
+							<button id="PsaveAs">另存为</button>
+							<button id="Psave">保存</button>
+							<button id="convertToSymbol">转化成符号</button>
+						</div>
+					</div>
+				</div>
 			</div>
 
 			<!-- train.html 中的内容 -->

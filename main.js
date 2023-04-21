@@ -62,7 +62,7 @@ const runApp = function () {
 
 	if (!pythonProcess) {
 		pythonProcess = spawn("python_env/Scripts/python.exe",
-			['textProcessor.py', 9000],
+			['py/textProcessor.py', 9000],
 			{ env: { PYTHONIOENCODING: 'UTF-8' } });
 	}
 
