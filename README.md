@@ -16,6 +16,9 @@ vits-miki](https://huggingface.co/spaces/tumuyan/vits-miki)(作者是[秋之雪�
 
 本地需要安装npm和python，等我学会了怎么打包我再打包
 
+建议使用python3.7版本，避免numpy等包的冲突。
+[python 3.7](https://www.python.org/downloads/release/python-379/)
+
 你可以在[node.js](https://nodejs.org/zh-cn)下载和安装npm，接着在代码的目录运行：
 
 ```sh

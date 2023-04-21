@@ -65,7 +65,7 @@
 .train-page {
     width: 100%;
     height: 739px;
-    background-color: #ece2f7;
+    background-color: #eee6f7;
 }
 
 .settings {
@@ -82,8 +82,6 @@
 }
 
 .tensorboard-herf {
-    height: 19;
-    padding-left: 10px;
     font-size: 14px;
 }
 
@@ -104,6 +102,7 @@
 
 .setting-r {
     float: left;
+    position: relative;
     width: 522px;
     height: 263px;
 }
@@ -113,7 +112,6 @@
 }
 
 .terminal {
-    position: relative;
     font-family: 'Courier New', monospace;
     width: 522px;
     height: 263px;
@@ -122,13 +120,15 @@
     border-radius: 2px;
     padding: 10px;
     box-sizing: border-box;
-    overflow: auto;
+    overflow-y: auto;
 }
 
 .terminal pre {
     margin: 0;
     color: #00ff00;
     white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 #hack-buttons {
@@ -154,6 +154,7 @@
 
 .train-page .model-select {
     margin-left: 15px;
+    padding-left: 5px;
     width: 180px;
     height: 32px;
     background-color: #ffffff;
@@ -170,10 +171,32 @@
 .toTensorboard:link
 {
     text-decoration: none;
-    color: #d9b202;
-    border-radius: 2px;
+    color: #7600bb;
+    border-radius: 5px;
+    transition: 0.2s;
 }
 
 .toTensorboard:hover {
-    background-color: #e2e2e2;
+    background-color: #fac8c8;
+}
+
+.full-screen{
+    font-size: 14px;
+    font-weight: 600;
+    vertical-align: middle;
+    float: right;
+    line-height: 19px;
+    border: none;
+    background-color: #eee6f7;
+    transition: 0.2s;
+    border-radius: 5px;
+    visibility: hidden;
+}
+
+.full-screen:hover{
+    background-color: #bf90f0;
+}
+
+.full-screen:active{
+    background-color: #a161e6;
 }

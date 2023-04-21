@@ -6,28 +6,38 @@ if exist .\python_env (
   goto end
 )
 
+
 echo Creating virtual environment
 rem 创建虚拟环境
 python -m venv python_env
 
-rem 激活虚拟环境
+
+echo activate python virtual environment
 call .\python_env\Scripts\activate.bat
 
-pip3 install torch torchvision --index-url https://download.pytorch.org/whl/cu117
+echo upgrade pip
+python.exe -m pip install --upgrade pip
+echo Done upgrading pip
+
+echo Installing pytorch
+pip3 install torch --index-url https://download.pytorch.org/whl/cu117
+echo Done installing pytorch
+
 
 echo Installing requirements
-rem 安装 requirements.txt 中的依赖包
 pip install -r requirements.txt
+echo Done Installing requirements 
 
 echo Building monotonic_align
-rem 执行其他命令
 cd vits
 cd monotonic_align
 mkdir monotonic_align
 python setup.py build_ext --inplace
+echo Done Building monotonic_align
 
-rem 退出虚拟环境
+echo Exit virtual environment
 deactivate
+echo Done exiting virtual environment
 
 :end
-echo Done.
+echo All Done.

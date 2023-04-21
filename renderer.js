@@ -67,6 +67,7 @@ const terminal = document.getElementById('terminal');
 const output = document.getElementById('output');
 const toTensorboard = document.getElementById('toTensorboard');
 const tensorboardIframe = document.getElementById('tensorboardIframe');
+const fullScreen = document.getElementById('fullScreen');
 
 
 
@@ -236,20 +237,6 @@ fileInput.addEventListener('change', async (event) => {
 
 //以下是训练区域
 
-// document.getElementById('start-tensorboard').addEventListener('click', () => {
-// 	const logdir = 'path/to/your/log/directory'; // 修改为你的日志目录
-// 	ipcRenderer.send('start-tensorboard', logdir);
-// });
-
-// document.getElementById('stop-tensorboard').addEventListener('click', () => {
-// 	ipcRenderer.send('stop-tensorboard');
-// });
-
-// ipcRenderer.on('tensorboard-url', (_, url) => {
-// 	console.log(url);
-// 	document.getElementById('tensorboard-iframe').src = url;
-// });
-
 
 let configNameValue = '';
 let trainCountValue = trainCount.value;
@@ -261,8 +248,6 @@ let cleanerValue = cleaner.value;
 let modelNameValue = '';
 
 let configPath = ''
-
-let pythonTrain = null;
 
 
 const getJsonFromSettings = function () {
@@ -276,7 +261,7 @@ const getJsonFromSettings = function () {
 			"betas": [0.8, 0.99],
 			"eps": 1e-9,
 			"batch_size": parseInt(fileCountValue),
-			"fp16_run": true,
+			"fp16_run": false,
 			"lr_decay": 0.999875,
 			"segment_size": 8192,
 			"init_lr_ratio": 1,
@@ -454,50 +439,52 @@ modelSelectT.addEventListener('change', async () => {
 
 
 startTrain.addEventListener('click', () => {
-	if (pythonTrain) {
-		return;
-	}
 
-	pythonTrain = spawn("python_env/Scripts/python.exe",
-		["./vits/train.py", "-c", configPath, "-m", modelNameValue],
-		{ env: { PYTHONIOENCODING: 'UTF-8' } });
+	ipcRenderer.send('start-training', configPath, modelNameValue);
 
-	const logdir = `models/${modelName}/`; //日志目录
-	ipcRenderer.send('start-tensorboard', logdir);
-	ipcRenderer.on('tensorboard-url', (_, url) => {
-		console.log(url);
-		tensorboardIframe.src = url;
-		toTensorboard.style.visibility = "visible";
-		toTensorboard.href = url;
-	});
-
-
-	pythonTrain.stdout.on('data', (data) => {
-		output.textContent += data.toString();
+	ipcRenderer.on('python-train-data', (_, data) => {
+		output.textContent += data + '\n';
 		terminal.scrollTop = terminal.scrollHeight;
 	});
 
-	pythonTrain.stderr.on('data', (data) => {
-		output.textContent += data.toString();
+	ipcRenderer.on('python-train-error', (_, data) => {
+		output.textContent += data + '\n';
 		terminal.scrollTop = terminal.scrollHeight;
 	});
 
-	pythonTrain.on('close', (code) => {
+	ipcRenderer.on('python-train-exit', (_, code) => {
 		output.textContent += `python exited with code: ${code}\n`;
 		terminal.scrollTop = terminal.scrollHeight;
 		pythonTrain = null;
 	});
+
+	ipcRenderer.on('tensorboard-url', (_, url) => {
+		console.log(url);
+		tensorboardIframe.src = url;
+		toTensorboard.style.visibility = "visible";
+		fullScreen.style.visibility = "visible";
+		toTensorboard.href = url;
+	});
 });
 
 stopTrain.addEventListener('click', () => {
-	if (pythonTrain) {
-		pythonTrain.kill();
-		pythonTrain = null;
-	}
+	ipcRenderer.send('stop-training');
 	ipcRenderer.send('stop-tensorboard');
+	ipcRenderer.on('stop-train-feedback', (_, data) => {
+		console.log(data);
+		output.textContent += data + '\n';
+		terminal.scrollTop = terminal.scrollHeight;
+	});
 	toTensorboard.style.visibility = "hidden";
+	fullScreen.style.visibility = "hidden";
 	tensorboardIframe.src = '';
 	toTensorboard.href = ' ';
+});
+
+fullScreen.addEventListener('click', () => {
+	if(tensorboardIframe.src){
+		tensorboardIframe.requestFullscreen();
+	}
 });
 
 //以下是数据处理 
