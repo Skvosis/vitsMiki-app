@@ -11,14 +11,12 @@ const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
 const { spawn } = require('child_process');
 const { Menu } = require('electron');
-const psTree = require('ps-tree');
 
 let mainWindow;
 let terminalWindow;
 let pythonProcess;
 let pythonTrain = null;
 let tensorboardProcess = null;
-
 
 const createWindow = function () {
 	const iconPath = process.platform === 'darwin' ? "icon/app512.icns" : "icon/app512.ico";
@@ -60,8 +58,10 @@ const createTerminalWindow = function () {
 
 const runApp = function () {
 
+	const pythonExecutablePath = process.platform === 'win32' ? 'python.exe' : 'python';
+	const pythonPath = path.join('python_env','Scripts',pythonExecutablePath)
 	if (!pythonProcess) {
-		pythonProcess = spawn("python_env/Scripts/python.exe",
+		pythonProcess = spawn(pythonPath,
 			['py/textProcessor.py', 9000],
 			{ env: { PYTHONIOENCODING: 'UTF-8' } });
 	}
@@ -97,11 +97,10 @@ const startTensorboard = function (logdir, sender) {
 		return;
 	}
 
-	const pythonEnvPath = path.join(__dirname, './python_env');
-	const pythonExecutable = process.platform === 'win32' ? 'python.exe' : 'python';
-	const pythonPath = path.join(pythonEnvPath, 'Scripts', pythonExecutable);
+	const pythonExecutablePath = process.platform === 'win32' ? 'python.exe' : 'python';
+	const pythonPath = path.join('python_env','Scripts',pythonExecutablePath)
 	const tensorboardExecutable = 'win32' ? 'tensorboard.exe' : 'tensorboard';
-	const tensorboardScriptPath = path.join(pythonEnvPath, 'Scripts', tensorboardExecutable);
+	const tensorboardScriptPath = path.join('./python_env', 'Scripts', tensorboardExecutable);
 
 	tensorboardProcess = spawn(pythonPath, [tensorboardScriptPath,
 		'--logdir', logdir,
@@ -127,16 +126,18 @@ const startTensorboard = function (logdir, sender) {
 }
 
 const stopTensorboard = function () {
+
 	if (tensorboardProcess) {
 		tensorboardProcess.kill();
 	}
 }
 
 app.on('ready', () => {
+
 	createTerminalWindow();
 	const batName = process.platform === 'darwin' ? "create_env.sh" : "create_env.bat";
 
-	const batPath = path.join(__dirname, 'scripts', batName);
+	const batPath = path.join('scripts', batName);
 
 	const batProcess = spawn(batPath);
 
@@ -155,6 +156,7 @@ app.on('ready', () => {
 });
 
 app.on('quit', () => {
+	
 	if (pythonProcess) {
 		console.log('Killing pythonProcess before quitting the app');
 		pythonProcess.kill();
@@ -172,22 +174,6 @@ app.on('quit', () => {
 app.on('window-all-closed', () => {
 	app.quit();
 })
-
-app.on('will-quit', () => {
-	// 获取主进程PID
-	const mainProcessPid = process.pid;
-
-	// 使用ps-tree模块获取所有子进程的PID
-	psTree(mainProcessPid, (err, children) => {
-		if (err) throw err;
-
-		// 遍历所有子进程，并向它们发送SIGTERM信号以终止它们
-		for (const child of children) {
-			console.log('Killing ${child.PID} process before quitting the app');
-			process.kill(child.PID, 'SIGTERM');
-		}
-	});
-});
 
 
 //train.py部分

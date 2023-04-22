@@ -99,8 +99,12 @@
 			</div>
 
 			<!-- dataProcess.html 中的内容 -->
-			<div id="dataProcessPage" class="dataProcess-page page">
+			<div id="dataProcessPage" class="dataProcess-page page"
+				style="background-image: url(https://img.51miz.com/Element/00/19/26/49/8fb5e939_E192649_8a376c82.png);">
 				<div class="left">
+
+					<input type="text" class="Pmodel-name" 
+					id="PModelName" placeholder="输入模型的名字">
 					<div class="hint">输入一个视频文件</div>
 					<input type="file" id="videoInput" accept="video/*">
 					<button class="arrow-button" id="videoToAudio">⬇️</button>
@@ -110,6 +114,8 @@
 					<div class="hint">输入一段处理好的音频</div>
 					<input type="file" id="audioInput2" accept="audio/*">
 					<button class="arrow-button" id="caudioToText">➡️</button>
+			
+					
 					<div id="textOut" class="terminalText">
 						<pre id="Poutput"></pre>
 					</div>

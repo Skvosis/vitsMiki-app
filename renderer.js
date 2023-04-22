@@ -1,10 +1,9 @@
 const { ipcRenderer, clipboard } = require('electron');
-const { spawn } = require('child_process');
 const fs = require('fs');
 const path = require('path');
 
 const pages = document.querySelectorAll('.page');
-const modelsDir = path.join(__dirname, 'models');
+const modelsDir = 'models';
 
 //页面切换相关
 function showPage(pageId) {
@@ -83,6 +82,7 @@ const audioPlayer = document.getElementById('audioPlayer');
 const PsaveAsBtn = document.getElementById('PsaveAs');
 const PsaveBtn = document.getElementById('Psave');
 const convertToSymbolBtn = document.getElementById('convertToSymbol');
+const PModelName = document.getElementById('PModelName');
 
 
 
@@ -363,7 +363,6 @@ DownloadJson.addEventListener("click", function () {
 	// 模拟点击 a 标签以下载文件
 	a.click();
 
-	// 释放创建的 URL 对象
 	URL.revokeObjectURL(url);
 	output.textContent += `file saved successfully\n`
 
@@ -504,6 +503,8 @@ fullScreen.addEventListener('click', () => {
 });
 
 //以下是数据处理 
+let PModelNameValue = ''
+
 videoInput.addEventListener('change', handleVideoInput);
 audioInput1.addEventListener('change', handleAudioInput1);
 audioInput2.addEventListener('change', handleAudioInput2);
@@ -513,9 +514,14 @@ caudioToText.addEventListener('click',handleCTT);
 PsaveAsBtn.addEventListener('click', handleSaveAs);
 PsaveBtn.addEventListener('click', handleSave);
 convertToSymbolBtn.addEventListener('click', handleConvertToSymbol);
+PModelName.addEventListener('input',(event)=>{
+	PModelNameValue = event.target.value;
+});
+
 
 function handleVideoInput(event) {
-	// 处理视频文件输入
+	const filePath = event.target.files[0].path;
+	
   }
   
   function handleAudioInput1(event) {
