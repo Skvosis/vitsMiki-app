@@ -98,7 +98,7 @@ const startTensorboard = function (logdir, sender) {
 	}
 
 	const pythonExecutablePath = process.platform === 'win32' ? 'python.exe' : 'python';
-	const pythonPath = path.join('python_env','Scripts',pythonExecutablePath)
+	const pythonPath = path.join('./python_env','Scripts',pythonExecutablePath)
 	const tensorboardExecutable = 'win32' ? 'tensorboard.exe' : 'tensorboard';
 	const tensorboardScriptPath = path.join('./python_env', 'Scripts', tensorboardExecutable);
 
@@ -188,7 +188,7 @@ ipcMain.on('start-training', (event, configPath, modelNameValue) => {
 		["./vits/train.py", "-c", configPath, "-m", modelNameValue],
 		{ env: { PYTHONIOENCODING: 'UTF-8' } });
 
-	const logdir = `models/${modelNameValue}/`; //日志目录
+	const logdir = `./models/${modelNameValue}/`; //日志目录
 	startTensorboard(logdir, event.sender);
 
 	pythonTrain.stdout.on('data', (data) => {
