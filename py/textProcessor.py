@@ -2,8 +2,11 @@
 import os
 import sys
 current_dir = os.path.dirname(os.path.abspath(__file__))
-vits_dir = os.path.join(current_dir, "vits")
+parent_dir = os.path.abspath(os.path.join(current_dir, os.pardir))
+vits_dir = os.path.join(parent_dir, "vits")
+
 sys.path.append(vits_dir)
+sys.path.append(current_dir)
 
 from flask import Flask, request, jsonify, send_file
 import io
@@ -40,7 +43,6 @@ def latest_checkpoint_path(dir_path, regex="G_*.pth"):
   return x
 
 cuda = torch.cuda.is_available()
-    
 
 def get_text(text, hps):
     if not model or not hps:
@@ -117,6 +119,7 @@ def getWav(rawAudio,sample_rate,num_channels):
         # 获取字节流
         wav_bytes = wav_file.getvalue()
     return wav_bytes
+    
 
 @app.route('/getCleaned')
 def cleaned_text():

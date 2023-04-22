@@ -14,6 +14,17 @@ MATPLOTLIB_FLAG = False
 logging.basicConfig(stream=sys.stdout, level=logging.WARNING)
 logger = logging
 
+def remove_old_checkpoints(dir_path, regex_list=["G_*.pth", "D_*.pth"], keep_latest=5):
+  for regex in regex_list:
+    f_list = glob.glob(os.path.join(dir_path, regex))
+    f_list.sort(key=lambda f: int("".join(filter(str.isdigit, f))), reverse=True)
+
+        # 删除多余的 .pth 文件，只保留最新的 5 个
+    if len(f_list) > keep_latest:
+      for f in f_list[keep_latest:]:
+        os.remove(os.path.join(dir_path, f))
+        print(f"Removed: {f}")
+
 
 def load_checkpoint(checkpoint_path, model, optimizer=None):
   assert os.path.isfile(checkpoint_path)

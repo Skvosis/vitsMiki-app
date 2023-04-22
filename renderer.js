@@ -1,10 +1,9 @@
 const { ipcRenderer, clipboard } = require('electron');
-const { spawn } = require('child_process');
 const fs = require('fs');
 const path = require('path');
 
 const pages = document.querySelectorAll('.page');
-const modelsDir = path.join(__dirname, 'models');
+const modelsDir = 'models';
 
 //页面切换相关
 function showPage(pageId) {
@@ -68,6 +67,23 @@ const output = document.getElementById('output');
 const toTensorboard = document.getElementById('toTensorboard');
 const tensorboardIframe = document.getElementById('tensorboardIframe');
 const fullScreen = document.getElementById('fullScreen');
+
+//预处理
+const videoInput = document.getElementById('videoInput');
+const audioInput1 = document.getElementById('audioInput1');
+const audioInput2 = document.getElementById('audioInput2');
+const videoToAudio = document.getElementById('videoToAudio');
+const AudioToCaudio = document.getElementById('AudioToCaudio');
+const caudioToText = document.getElementById('caudioToText');
+const textOut = document.getElementById('textOut');
+const Poutput = document.getElementById('Poutput');
+const textDisplay = document.getElementById('textDisplay');
+const audioPlayer = document.getElementById('audioPlayer');
+const PsaveAsBtn = document.getElementById('PsaveAs');
+const PsaveBtn = document.getElementById('Psave');
+const convertToSymbolBtn = document.getElementById('convertToSymbol');
+const PModelName = document.getElementById('PModelName');
+
 
 
 
@@ -347,7 +363,6 @@ DownloadJson.addEventListener("click", function () {
 	// 模拟点击 a 标签以下载文件
 	a.click();
 
-	// 释放创建的 URL 对象
 	URL.revokeObjectURL(url);
 	output.textContent += `file saved successfully\n`
 
@@ -488,3 +503,47 @@ fullScreen.addEventListener('click', () => {
 });
 
 //以下是数据处理 
+let PModelNameValue = ''
+
+videoInput.addEventListener('change', handleVideoInput);
+audioInput1.addEventListener('change', handleAudioInput1);
+audioInput2.addEventListener('change', handleAudioInput2);
+videoToAudio.addEventListener('click',handleVTA);
+AudioToCaudio.addEventListener('click',handleATC);
+caudioToText.addEventListener('click',handleCTT);
+PsaveAsBtn.addEventListener('click', handleSaveAs);
+PsaveBtn.addEventListener('click', handleSave);
+convertToSymbolBtn.addEventListener('click', handleConvertToSymbol);
+PModelName.addEventListener('input',(event)=>{
+	PModelNameValue = event.target.value;
+});
+
+
+function handleVideoInput(event) {
+	const filePath = event.target.files[0].path;
+	
+  }
+  
+  function handleAudioInput1(event) {
+	// 处理音频文件输入1
+  }
+  
+  function handleAudioInput2(event) {
+	// 处理音频文件输入2
+  }
+  
+  function handleVTA(event) {
+  }
+  function handleATC(event) {
+  }
+  function handleCTT(event) {
+  }
+  
+  function handleSaveAs(event) {
+  }
+  
+  function handleSave(event) {
+  }
+  
+  function handleConvertToSymbol(event) {
+  }
