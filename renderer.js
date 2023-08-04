@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 
 const pages = document.querySelectorAll('.page');
-const modelsDir = path.join(__dirname, 'models');
+const modelsDir = 'models';
 
 //页面切换相关
 function showPage(pageId) {
