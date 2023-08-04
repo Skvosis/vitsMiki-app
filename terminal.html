@@ -2,21 +2,21 @@
 <html>
 
 <head>
-  <meta charset="UTF-8">
-  <link rel="stylesheet" href="css/terminal.css">
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="css/terminal.css">
 </head>
 
 <body>
-  <pre id="terminal-output"></pre>
-  <script>
-    const { ipcRenderer } = require('electron');
-    const terminal =  document.getElementById('terminal-output');
+	<pre id="terminal-output"></pre>
+	<script>
+		const { ipcRenderer } = require('electron');
+		const terminal = document.getElementById('terminal-output');
 
-    ipcRenderer.on('terminal-data', (event, data) => {
-      terminal.textContent += data;
-      terminal.scrollTop = terminal.scrollHeight;
-    });
-  </script>
+		ipcRenderer.on('terminal-data', (event, data) => {
+			terminal.textContent += data;
+			terminal.scrollTop = terminal.scrollHeight;
+		});
+	</script>
 </body>
 
 </html>
